@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokemon</title>
+</head>
+<link rel="shortcut icon" href="assets/img/pokeball.png" type="image/x-icon" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    --pokemon-yellow: #ffcb05;
+    --pokemon-dark-yellow: #c7a008;
+    --pokemon-blue: #3b5aa6;
+    --pokemon-dark-blue: #1d2c5e;
+    --normal-color: #d8d8d0;
+    --normal-background: linear-gradient(45deg,
+        #705848 0%,
+        #d8d8d0 50%,
+        #a8a878 100%);
+    --fire-color: #f08030;
+    --fire-background: linear-gradient(45deg,
+        #c03028 0%,
+        #f08030 50%,
+        #f8d030 100%);
+    --water-color: #6890f0;
+    --water-background: linear-gradient(45deg,
+        rgb(40, 37, 209) 0%,
+        #6890f0 50%,
+        #98d8d8 100%);
+    --electric-color: #f8d030;
+    --electric-background: linear-gradient(45deg,
+        #b8a038 0%,
+        #f8d030 50%,
+        #f8f878 100%);
+    --grass-color: #78c850;
+    --grass-background: linear-gradient(45deg,
+        #588040 0%,
+        #78c850 50%,
+        #c0f860 100%);
+    --ice-color: #98d8d8;
+    --ice-background: linear-gradient(45deg,
+        #9090a0 0%,
+        #98d8d8 50%,
+        #d0f8e8 100%);
+    --fighting-color: #c03028;
+    --fighting-background: linear-gradient(45deg,
+        #484038 0%,
+        #c03028 50%,
+        #f08030 100%);
+    --poison-color: #a040a0;
+    --poison-background: linear-gradient(45deg,
+        #483850 0%,
+        #a040a0 50%,
+        #d880b8 100%);
+    --ground-color: #e0c068;
+    --ground-background: linear-gradient(45deg,
+        #886830 0%,
+        #e0c068 50%,
+        #f8f878 100%);
+    --flying-color: #a890f0;
+    --flying-background: linear-gradient(45deg,
+        #705898 0%,
+        #a890f0 50%,
+        #c8c0f8 100%);
+    --psychic-color: #f85888;
+    --psychic-background: linear-gradient(45deg,
+        #906060 0%,
+        #f85888 50%,
+        #f8c0b0 100%);
+    --bug-color: #a8b820;
+    --bug-background: linear-gradient(45deg,
+        #789010 0%,
+        #a8b820 50%,
+        #d8e030 100%);
+    --rock-color: #b8a038;
+    --rock-background: linear-gradient(45deg,
+        #886830 0%,
+        #b8a038 50%,
+        #e0c068 100%);
+    --ghost-color: #705898;
+    --ghost-background: linear-gradient(45deg,
+        #483850 0%,
+        #705898 50%,
+        #a890f0 100%);
+    --dragon-color: #7038f8;
+    --dragon-background: linear-gradient(45deg,
+        #483890 0%,
+        #7038f8 50%,
+        #b8a0f8 100%);
+    --dark-color: #222;
+    --dark-background: linear-gradient(45deg, #111 0%, #222 50%, #333 100%);
+    --steel-color: #b8b8d0;
+    --steel-background: linear-gradient(45deg,
+        #807870 0%,
+        #b8b8d0 50%,
+        #d8d8c0 100%);
+    --fairy-color: #f0b6bc;
+    --fairy-background: linear-gradient(45deg,
+        #905f63 0%,
+        #f0b6bc 50%,
+        #f5cad1 100%);
+    --unknow-color: #6aa596;
+    --fairy-background: linear-gradient(45deg,
+        #40685e 0%,
+        #6aa596 50%,
+        #a4d8cb 100%);
+    --shadow-color: #000;
+    --shadow-background: linear-gradient(45deg, #000 0%, #000 50%, #000 100%);
+  }
+
+  .logo {
+    font-size: 3rem;
+    width: 200px;
+    display: block;
+    margin: 1rem auto;
+  }
+
+  .main_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    width: 80%;
+    margin: auto;
+  }
+
+  .feature {
+    grid-column: span 2;
+  }
+
+  main {
+    font-size: 14px;
+    display: block;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(119px, 1fr));
+    margin-right: 5px;
+    border-radius: 5px;
+  }
+
+  main figure {
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all ease-in-out 0.3s;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .number {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 3.5rem;
+    font-weight: bolder;
+    color: #ccc;
+    /* letter-spacing: -5px; */
+    position: absolute;
+    z-index: -1;
+  }
+
+  main figure:hover {
+    cursor: pointer;
+    background-color: var(--pokemon-yellow);
+    z-index: 1;
+  }
+
+  figure img {
+    width: 85%;
+  }
+
+  nav {
+    width: 10%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  nav span {
+    /* width: 2rem; */
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 50%;
+    background-color: var(--pokemon-blue);
+    text-align: center;
+    color: var(--pokemon-yellow);
+    transition: all ease-in-out 0.3s;
+  }
+
+  nav span:hover {
+    background-color: var(--pokemon-dark-blue);
+  }
+
+  span:hover {
+    cursor: pointer;
+  }
+
+  .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    background-image: url(assets/img/Hexagon2.svg);
+    background-size: cover;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  .information_card_img {
+    width: 50%;
+    margin: auto;
+    filter: drop-shadow(5px 5px 5px #222);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+    gap: 5px;
+    grid-auto-flow: column;
+    width: 85%;
+    margin: auto;
+  }
+
+  .hp,
+  .attack,
+  .defense,
+  .special_attack,
+  .special_defense,
+  .speed {
+    /* width: fit-content; */
+    width: 100%;
+    text-align: center;
+  }
+
+  .hp ul li,
+  .attack ul li,
+  .defense ul li,
+  .special_attack ul li,
+  .special_defense ul li,
+  .speed ul li {
+    display: block;
+    background-color: lightgray;
+    width: 100%;
+    height: 5px;
+    margin: 5px auto;
+  }
+
+  ul {
+    clear: both;
+  }
+
+  .stats span {
+    font-size: 10px;
+    float: left;
+    text-align: center;
+    width: 100%;
+  }
+
+  .information {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .information label {
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .type {
+    padding: 0 5px;
+    color: whitesmoke;
+    border-radius: 10px;
+    text-shadow: 0px 0px 4px #000;
+    border: 1px solid black;
+    box-shadow: inset 0px 1px 2px rgb(255 255 255),
+      inset 0px -1px 2px rgb(255 255 255);
+    margin-right: 5px;
+  }
+
+  .cover_img {
+    background-image: url(assets/img/background.jpg);
+    background-size: cover;
+    border-radius: 5px;
+  }
+
+  .active {
+    background-color: var(--pokemon-yellow);
+    z-index: 1;
+  }
+
+  /* esto es el loader */
+  .loader {
+    display: block;
+    margin: auto;
+  }
+
+  .figs {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .figs-img>img {
+    filter: opacity(0);
+  }
+
+  .figs-img {
+    position: static;
+    width: 85%;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: .5rem;
+    animation: loading 3s infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .figs>figcaption {
+    width: 85%;
+    margin: auto;
+    border-radius: 5px;
+    margin-bottom: .5rem;
+    color: transparent;
+    animation: loading 3s infinite;
+
+  }
+
+  .figs:hover {
+    background-color: transparent;
+  }
+
+  @keyframes loading {
+    0% {
+      background-color: #ddd;
+    }
+
+    50% {
+      background-color: #bbb;
+    }
+
+    100% {
+      background-color: #ddd;
+    }
+  }
+
+
+  /* Esto es la medida para celulares */
+  @media (max-width : 600px) {
+    main {
+      grid-template-columns: repeat(auto-fit, minmax(79px, 1fr));
+    }
+
+    .number {
+      font-size: 3rem;
+      letter-spacing: -5px;
+    }
+  }
+
+  /* Esto es para tablets */
+  @media (min-width : 601px) and (max-width: 768px) {
+    main {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+  }
+
+  /* Esto es para laptops */
+  @media (min-width : 769px) and (max-width: 992px) {
+    main {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+  }
+</style>
+
+<body>
+  <img src="assets/img/pokemon-logo_0.png" class="logo" alt="" />
+  <div class="main_container">
+    <main class="feature"></main>
+    <div class="container">
+      <h2 class="no">No. 000</h2>
+      <div class="cover_img">
+        <img class="information_card_img" src="assets/img/pokemon not found.png" />
+      </div>
+      <h2 class="name">???</h2>
+      <div class="stats">
+        <div class="hp">
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <span>Hp</span>
+        </div>
+        <div class="attack">
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <span>Attack</span>
+        </div>
+        <div class="defense">
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <span>Defense</span>
+        </div>
+        <div class="special_attack">
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <span>Special Attack</span>
+        </div>
+        <div class="special_defense">
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <span>Special Defense</span>
+        </div>
+        <div class="speed">
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <span>Speed</span>
+        </div>
+      </div>
+      <div class="information">
+        <label class="weight"></label>
+        <label class="height"></label>
+        <label class="types feature"></label>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <span class="previous" title="Previous Page"><i class="fa-solid fa-chevron-left"></i></span>
+    <span class="next" title="Next Page"><i class="fa-solid fa-chevron-right"></i></span>
+  </nav>
+  <script>
+    const $main = document.querySelector("main");
+    let $template = "",
+      previous,
+      next,
+      $no = document.querySelector(`.no`),
+      $img = document.querySelector(`.information_card_img`),
+      $name = document.querySelector(`.name`),
+      $loader = document.querySelector(".loader"),
+      $information_types = document.querySelector(`.types`);
+    $information_background = document.querySelector(`.information`);
+
+    function stats(stat, level) {
+      let $stat = document.querySelectorAll(
+        `.${stat} ul li:nth-child(n+${15 - level + 1})`
+      );
+      let cleanStats = document.querySelectorAll(`.${stat} ul li`);
+      cleanStats.forEach((el) => {
+        el.setAttribute("style", "background-color: lightgray");
+      });
+      $stat.forEach((el) => {
+        el.setAttribute("style", "background-color: red");
+      });
+    }
+    function mostrarModalWindow(datos) {
+      $information_types.innerHTML = "";
+      let hp = Math.round(datos.hp / 15),
+        attack = Math.round(datos.attack / 15),
+        defense = Math.round(datos.defense / 15),
+        special_attack = Math.round(datos.special_attack / 15),
+        special_defense = Math.round(datos.special_defense / 15),
+        speed = Math.round(datos.speed / 15);
+
+      if (hp >= 15) {
+        hp = 15;
+      } else if (hp <= 0) {
+        hp = 1;
+      }
+      if (attack >= 15) {
+        attack = 15;
+      } else if (attack <= 0) {
+        attack = 1;
+      }
+      if (defense >= 15) {
+        defense = 15;
+      } else if (defense <= 0) {
+        defense = 1;
+      }
+      if (special_attack >= 15) {
+        special_attack = 15;
+      } else if (special_attack <= 0) {
+        special_attack = 1;
+      }
+      if (special_defense >= 15) {
+        special_defense = 15;
+      } else if (special_defense <= 0) {
+        special_defense = 1;
+      }
+      if (speed >= 15) {
+        speed = 15;
+      } else if (speed <= 0) {
+        speed = 1;
+      }
+
+      stats("hp", hp);
+      stats("attack", attack);
+      stats("defense", defense);
+      stats("special_attack", special_attack);
+      stats("special_defense", special_defense);
+      stats("speed", speed);
+      let no = `00${datos.order}`;
+      $no.innerHTML = `No.${no.slice(-3)}`;
+      $img.setAttribute(
+        "src",
+        datos.img_art || "assets/img/pokemon not found.png"
+      );
+      $name.innerHTML = datos.name;
+      document.querySelector(".weight").innerHTML = `<b>Weigth: </b> ${datos.weight / 10
+        } kg`;
+      document.querySelector(".height").innerHTML = `<b>Heigth: </b> ${datos.height / 10
+        } m`;
+      $information_types.innerHTML = `<b>Types: </b>`;
+      let types_tmp = datos.types.split(",");
+      $information_background.setAttribute(
+        `style`,
+        `background: var(--${types_tmp[0]}-background);`
+      );
+
+      types_tmp.forEach((el) => {
+        let types_tmp2 = `<span class="type" style="background-color : var(--${el}-color);">${el}</span>`;
+        $information_types.insertAdjacentHTML("beforeend", types_tmp2);
+      });
+    }
+    async function loadPokemon(url) {
+      try {
+        /* Aqui creamos el loader para cuando estan cargando los pokemones */
+        /* <img src="assets/img/ball-triangle.svg" alt="Loading..." class="loader"> */
+        $main.innerHTML = `
+           <figure class = "figs">
+             <div class="figs-img">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png">
+              </div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+           <figure class = "figs">
+             <div class="figs-img"><img src="assets/img/pokeball.png"></div>
+             <figcaption>pikachu</figcaption>
+           </figure>
+         `;
+        let res = await fetch(url),
+          json = await res.json();
+
+        if (!res.ok) throw { status: res.status, statusText: res.statusText };
+        for (let i = 0; i < json.results.length; i++) {
+          try {
+            let res = await fetch(json.results[i].url),
+              pokemon = await res.json();
+            /* console.log(pokemon); */
+
+            if (!res.ok)
+              throw { status: res.status, statusText: res.statusText };
+
+            let types = ``;
+            for (let index = 0; index < pokemon.types.length; index++) {
+              types += `${pokemon.types[index].type.name},`;
+            }
+            let img_mini =
+              pokemon.sprites.front_default ||
+              "assets/img/pokemon not found.png";
+            types = types.slice(0, -1);
+            let number = `00${pokemon.id}`;
+            number = number.slice(-3);
+            $template += `
+                    <figure
+                    class = "fig"
+                    data-name = ${pokemon.name.toUpperCase()}
+                    data-height = ${pokemon.height}
+                    data-order = ${pokemon.id}
+                    data-weight = ${pokemon.weight}
+                    data-hp = ${pokemon.stats[0].base_stat}
+                    data-attack = ${pokemon.stats[1].base_stat}
+                    data-defense = ${pokemon.stats[2].base_stat}
+                    data-special_attack = ${pokemon.stats[3].base_stat}
+                    data-special_defense = ${pokemon.stats[4].base_stat}
+                    data-speed = ${pokemon.stats[5].base_stat}
+                    data-types = ${types}
+                    data-weight = ${pokemon.weight}
+                    data-img = ${img_mini}
+                    data-img_art = ${pokemon.sprites.other["official-artwork"].front_default}>
+                    <span class="number">#${number}</span>
+                      <img src="${img_mini}" alt="${pokemon.name}" />
+                      <figcaption>${pokemon.name.toUpperCase()}</figcaption>
+                    </figure>
+                  `;
+          } catch (err) {
+            console.log(err);
+          }
+
+        }
+        $main.innerHTML = $template;
+        next = json.next;
+        previous = json.previous;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", (e) =>
+      loadPokemon("https://pokeapi.co/api/v2/pokemon?limit=24")
+    );
+    document.addEventListener("click", (e) => {
+      if (document.querySelector(".active")) {
+        document.querySelector(".active").classList.remove("active");
+      }
+      if (e.target.matches(".next")) {
+        if (next) {
+          $template = "";
+          loadPokemon(next);
+        }
+      } else if (e.target.matches(".previous")) {
+        if (previous) {
+          $template = "";
+          loadPokemon(previous);
+        }
+      } else if (e.target.matches("main *")) {
+        let datos = e.target.dataset;
+        if (datos.hp === undefined) {
+          e.target.parentElement.classList.add("active");
+          datos = e.target.parentElement.dataset;
+        }
+        //mandamos llamar a la information-card
+        mostrarModalWindow(datos);
+      }
+    });
+  </script>
+</body>
+
+</html>
